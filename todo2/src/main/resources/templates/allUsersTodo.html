@@ -1,0 +1,48 @@
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>みんなのToDoリスト</title>
+</head>
+
+<body>
+  <h1>みんなのToDoリスト</h1>
+
+  <a th:href="@{/users/{m}(m=${mid})}">個人のToDoに戻る</a>
+
+  <h2>ToDoリスト</h2>
+  <table border="1">
+    <tr>
+      <th>ToDo ID</th>
+      <th>Title</th>
+      <th>User</th>
+      <th>CreatedDate</th>
+    </tr>
+    <tr th:each="t: ${ToDos}">
+      <td>[[${t.seq}]]</td>
+      <td>[[${t.title}]]</td>
+      <td>[[${t.mid}]]</td>
+      <td>[[${t.createdAt}]]</td>
+    </tr>
+  </table>
+
+  <h2>Doneリスト</h2>
+  <table border="1">
+    <tr>
+      <th>ToDo ID</th>
+      <th>Title</th>
+      <th>User</th>
+      <th>CreatedDate</th>
+      <th>DoneDate</th>
+    </tr>
+    <tr th:each="t: ${Dones}">
+      <td>[[${t.seq}]]</td>
+      <td>[[${t.title}]]</td>
+      <td>[[${t.mid}]]</td>
+      <td>[[${t.createdAt}]]</td>
+      <td>[[${t.doneAt}]]</td>
+    </tr>
+  </table>
+</body>
+
+</html>

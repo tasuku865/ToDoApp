@@ -1,0 +1,75 @@
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[[${mid}]]さんのToDoリスト</title>
+</head>
+
+<body>
+  <h1>[[${mid}]]さんのToDoリスト</h1>
+
+  <form role="form" th:action="@{/users/todos}" th:object="${MidForm}" method="get">
+    <input name="mid" th:value="${mid}" type="hidden">
+    <input type="submit" value="みんなのToDOへ">
+  </form>
+
+  <p> ToDo登録フォーム</p>
+  <form role="form" th:action="@{/users/{m}/todos(m=${mid})}" th:object="${ToDoForm}" method="post">
+    <table>
+      <tr>
+        <td><label>Title:</label></td>
+        <td><input type="text" required th:field="*{title}" /></td>
+      </tr>
+    </table>
+    <p><input type="submit" value="register" /></p>
+  </form>
+  <h2>ToDoリスト</h2>
+  <table border="1">
+    <tr>
+      <th>ToDo ID</th>
+      <th>Title</th>
+      <th>User</th>
+      <th>CreatedDate</th>
+      <th>Done</th>
+      <th>Delete</th>
+    </tr>
+    <tr th:each="t: ${ToDos}">
+      <td>[[${t.seq}]]</td>
+      <td>[[${t.title}]]</td>
+      <td>[[${t.mid}]]</td>
+      <td>[[${t.createdAt}]]</td>
+      <td>
+        <form role="form" th:action="@{/users/{m}/todos/done(m=${mid})}" th:object="${SeqForm}" method="post">
+          <input name="seq" th:value="${t.seq}" type="hidden">
+          <input type="submit" value="Done">
+        </form>
+      </td>
+      <td>
+        <form role="form" th:action="@{/users/{m}/todos/delete(m=${mid})}" th:object="${SeqForm}" method="post">
+          <input name="seq" th:value="${t.seq}" type="hidden">
+          <input type="submit" value="Delete">
+        </form>
+      </td>
+    </tr>
+  </table>
+
+  <h2>Doneリスト</h2>
+  <table border="1">
+    <tr>
+      <th>ToDo ID</th>
+      <th>Title</th>
+      <th>User</th>
+      <th>CreatedDate</th>
+      <th>DoneDate</th>
+    </tr>
+    <tr th:each="t: ${Dones}">
+      <td>[[${t.seq}]]</td>
+      <td>[[${t.title}]]</td>
+      <td>[[${t.mid}]]</td>
+      <td>[[${t.createdAt}]]</td>
+      <td>[[${t.doneAt}]]</td>
+    </tr>
+  </table>
+</body>
+
+</html>
